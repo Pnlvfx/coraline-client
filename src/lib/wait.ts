@@ -20,3 +20,5 @@ export function wait<T>(ms: number, callback?: Callback<T>) {
     }, ms),
   );
 }
+
+export type Wait = typeof wait;
