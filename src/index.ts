@@ -100,7 +100,6 @@ export default coraline;
 
 export { consoleColor } from './lib/console-color.js';
 export { errToString } from './lib/error.js';
-export const TG_GROUP_LOG = Number('-914836534');
 
 export { withRetry, type RetryOptions } from './lib/retry.js';
 
