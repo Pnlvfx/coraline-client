@@ -1,0 +1,48 @@
+{
+  "name": "coraline-client",
+  "description": "Your favourite client package helper.",
+  "version": "2024.6.12",
+  "main": "./dist/esm/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
+    "dev": "tsc -w & node --watch .",
+    "start": "node .",
+    "lint": "eslint ./src",
+    "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --moduleResolution node --outDir dist/cjs",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run lint"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-sonarjs": "^0.25.1",
+    "eslint-plugin-unicorn": "^53.0.0",
+    "prettier": "^3.3.1",
+    "rimraf": "^5.0.7",
+    "tsx": "^4.15.1",
+    "typescript": "^5.4.5"
+  }
+}
