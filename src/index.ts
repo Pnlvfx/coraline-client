@@ -98,6 +98,8 @@ const coraline = {
 
 export default coraline;
 
+export type { Wait } from './lib/wait.js';
+
 export { consoleColor } from './lib/console-color.js';
 export { errToString } from './lib/error.js';
 
