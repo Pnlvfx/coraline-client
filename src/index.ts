@@ -1,9 +1,8 @@
-import type { Callback } from './types/shared.js';
 import regex from './lib/regex.js';
 import coralineDate from './lib/date.js';
 import coralineColors from './lib/colors.js';
-import { wait } from './lib/wait.js';
 import { isProduction } from './config.js';
+import { runAtSpecificTime } from './lib/run-at-specific-time.js';
 
 const coraline = {
   arrayMove: (arr: [], fromIndex: number, toIndex: number) => {
@@ -50,29 +49,7 @@ const coraline = {
     }
     return perma;
   },
-  runAtSpecificTime: (hour: number, minute: number, fn: Callback<void>, repeat: boolean) => {
-    const date = new Date();
-    date.setHours(hour);
-    date.setMinutes(minute);
-    date.setSeconds(0);
-
-    if (date < new Date()) {
-      if (repeat) {
-        date.setDate(date.getDate() + 1);
-      } else {
-        return;
-      }
-    }
-
-    const timeUntilFunction = date.getTime() - Date.now();
-    setTimeout(async () => {
-      await fn();
-      if (repeat) {
-        await coraline.wait(1 * 60 * 1000);
-        coraline.runAtSpecificTime(hour, minute, fn, true);
-      }
-    }, timeUntilFunction);
-  },
+  runAtSpecificTime,
   performanceEnd: (start: number, api: string) => {
     if (isProduction) throw new Error('Do not use coraline.performanceEnd in production as it is used only for debugging purposes.');
     const end = performance.now();
@@ -90,7 +67,6 @@ const coraline = {
     return { heapUsage: percentage };
   },
   isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),
-  wait,
   date: coralineDate,
   regex,
   colors: coralineColors,
@@ -98,7 +74,7 @@ const coraline = {
 
 export default coraline;
 
-export type { Wait } from './lib/wait.js';
+export { wait } from './lib/wait.js';
 
 export { consoleColor } from './lib/console-color.js';
 export { errToString } from './lib/error.js';
