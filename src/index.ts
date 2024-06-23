@@ -5,11 +5,9 @@ import { isProduction } from './config.js';
 import { runAtSpecificTime } from './lib/run-at-specific-time.js';
 
 const coraline = {
-  arrayMove: (arr: [], fromIndex: number, toIndex: number) => {
-    const element = arr.at(fromIndex);
-    if (!element) throw new Error('Invalid values provided');
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
+  arrayMove: <T>(arr: T[], fromIndex: number, toIndex: number) => {
+    const el = arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, ...el);
   },
   getRandomInt: (max: number) => {
     return Math.floor(Math.random() * max);
