@@ -3,6 +3,7 @@ import coralineDate from './lib/date.js';
 import coralineColors from './lib/colors.js';
 import { isProduction } from './config.js';
 import { runAtSpecificTime } from './lib/run-at-specific-time.js';
+import { findUnusedExports } from './lib/ts-unused-exports.cjs';
 
 const coraline = {
   arrayMove: <T>(arr: T[], fromIndex: number, toIndex: number) => {
@@ -64,6 +65,7 @@ const coraline = {
     console.log(`Heap usage: ${percentage}%`);
     return { heapUsage: percentage };
   },
+  findUnusedExports,
   isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),
   date: coralineDate,
   regex,
