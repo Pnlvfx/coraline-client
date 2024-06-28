@@ -2,7 +2,7 @@
   "name": "coraline-client",
   "description": "Your favourite client package helper.",
   "version": "2024.6.12",
-  "main": "./dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "exports": {
