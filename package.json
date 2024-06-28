@@ -2,26 +2,22 @@
   "name": "coraline-client",
   "description": "Your favourite client package helper.",
   "version": "2024.6.12",
-  "main": "./dist/cjs/index.js",
+  "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    }
+    "types": "./dist/esm/index.d.ts",
+    "import": "./dist/esm/index.js",
+    "require": "./dist/index.js"
   },
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
     "dev": "tsc -w & node --watch .",
     "start": "node .",
     "lint": "eslint ./src",
-    "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --moduleResolution node --outDir dist/cjs",
+    "build": "rimraf dist && npm run lint && tsc && npm run build:cjs",
+    "build:cjs": "rollup ./dist/esm/index.js --file dist/index.js --format cjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && npm run lint"
   },
@@ -42,6 +38,7 @@
     "eslint-plugin-unicorn": "^54.0.0",
     "prettier": "^3.3.2",
     "rimraf": "^5.0.7",
+    "rollup": "^4.18.0",
     "tsx": "^4.15.7",
     "typescript": "^5.5.2"
   }
