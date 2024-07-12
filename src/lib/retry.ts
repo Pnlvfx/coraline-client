@@ -26,13 +26,9 @@ export const withRetry = <T>(callback: Callback<T>, { maxAttempts, retryInterval
           reject(err);
           return;
         }
-        if (!isProduction) {
+        if (!isProduction && failMessage) {
           // eslint-disable-next-line no-console
-          console.log(
-            failMessage
-              ? failMessage(errToString(err), attempt)
-              : `Function fail, try again, error: ${errToString(err)}, attempt: ${attempt}, maxAttempts: ${maxAttempts || 'Infinity'}`,
-          );
+          console.log(failMessage(errToString(err), attempt));
         }
         setTimeout(handle, retryIntervalMs);
         attempt++;
