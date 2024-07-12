@@ -5,6 +5,11 @@ import { isProduction } from './config.js';
 import { runAtSpecificTime } from './lib/run-at-specific-time.js';
 
 const coraline = {
+  toNumber: (str: string) => {
+    const num = Number(str);
+    if (Number.isNaN(num)) throw new Error(`Invalid number received: ${str}`);
+    return num;
+  },
   arrayMove: <T>(arr: T[], fromIndex: number, toIndex: number) => {
     const el = arr.splice(fromIndex, 1);
     arr.splice(toIndex, 0, ...el);
