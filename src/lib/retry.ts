@@ -7,10 +7,14 @@ export interface RetryOptions {
   retryIntervalMs?: number;
   failMessage?: (err: string, attempt: number) => string;
   signal?: AbortController['signal'];
+  ignoreWarnings?: boolean;
 }
 
 /** Run a function for the the desired amount of times, if it fails the last retry, it will throw an error. */
-export const withRetry = <T>(callback: Callback<T>, { maxAttempts, retryIntervalMs = 1000, failMessage, signal }: RetryOptions = {}) => {
+export const withRetry = <T>(
+  callback: Callback<T>,
+  { maxAttempts, retryIntervalMs = 1000, failMessage, signal, ignoreWarnings = false }: RetryOptions = {},
+) => {
   return new Promise<T>((resolve, reject) => {
     let attempt = 0;
     const handle = async () => {
@@ -26,9 +30,15 @@ export const withRetry = <T>(callback: Callback<T>, { maxAttempts, retryInterval
           reject(err);
           return;
         }
-        if (!isProduction && failMessage) {
-          // eslint-disable-next-line no-console
-          console.log(failMessage(errToString(err), attempt));
+        if (!isProduction) {
+          if (failMessage) {
+            // eslint-disable-next-line no-console
+            console.log(failMessage(errToString(err), attempt));
+          }
+          if (!ignoreWarnings && attempt > 10) {
+            // eslint-disable-next-line no-console
+            console.log(`Function fail, try again, error: ${errToString(err)}, attempt: ${attempt}, maxAttempts: ${maxAttempts || 'Infinity'}`);
+          }
         }
         setTimeout(handle, retryIntervalMs);
         attempt++;
