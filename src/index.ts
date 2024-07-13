@@ -3,6 +3,7 @@ import coralineDate from './lib/date.js';
 import coralineColors from './lib/colors.js';
 import { isProduction } from './config.js';
 import { runAtSpecificTime } from './lib/run-at-specific-time.js';
+import { wait } from './lib/wait.js';
 
 const coraline = {
   toNumber: (str: string) => {
@@ -70,14 +71,13 @@ const coraline = {
     return { heapUsage: percentage };
   },
   isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),
+  wait,
   date: coralineDate,
   regex,
   colors: coralineColors,
 };
 
 export default coraline;
-
-export { wait } from './lib/wait.js';
 
 export { consoleColor } from './lib/console-color.js';
 export { errToString } from './lib/error.js';
