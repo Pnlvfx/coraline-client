@@ -20,11 +20,11 @@ const formatDate = (date: string | number | Date) => {
 const coralineDate = {
   toYYMMDD: (date: string | number | Date) => {
     const time = formatDate(date);
-    return `${time.year}-${time.month}-${time.day}`;
+    return `${time.year.toString()}-${time.month}-${time.day}`;
   },
   toYYMMDDHHMM: (date: string | number | Date) => {
     const time = formatDate(date);
-    return `${time.year}-${time.month}-${time.day} ${time.hours}:${time.minutes}`;
+    return `${time.year.toString()}-${time.month}-${time.day} ${time.hours}:${time.minutes}`;
   },
   startOfDay: (date = new Date()) => {
     date.setHours(0, 0, 0, 0);

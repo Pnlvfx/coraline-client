@@ -23,10 +23,11 @@ export const withRetry = <T>(
         resolve(maybe);
       } catch (err) {
         if (signal?.aborted) {
-          reject('Aborted');
+          reject(new Error('Aborted'));
           return;
         }
         if (attempt === maxAttempts) {
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
           reject(err);
           return;
         }
@@ -37,13 +38,16 @@ export const withRetry = <T>(
           }
           if (!ignoreWarnings && attempt > 10) {
             // eslint-disable-next-line no-console
-            console.log(`Function fail, try again, error: ${errToString(err)}, attempt: ${attempt}, maxAttempts: ${maxAttempts || 'Infinity'}`);
+            console.log(
+              `Function fail, try again, error: ${errToString(err)}, attempt: ${attempt.toString()}, maxAttempts: ${maxAttempts?.toString() ?? 'Infinity'}`,
+            );
           }
         }
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         setTimeout(handle, retryIntervalMs);
         attempt++;
       }
     };
-    handle();
+    void handle();
   });
 };

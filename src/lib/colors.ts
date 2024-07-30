@@ -8,7 +8,7 @@ const coralineColors = {
     const red = Math.floor((Math.random() * 256) / 2);
     const green = Math.floor((Math.random() * 256) / 2);
     const blue = Math.floor((Math.random() * 256) / 2);
-    return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+    return 'rgb(' + red.toString() + ', ' + green.toString() + ', ' + blue.toString() + ')';
   },
   getLightColor: () => {
     let color = '#';
@@ -19,7 +19,7 @@ const coralineColors = {
     const red = Math.floor(((1 + Math.random()) * 256) / 2);
     const green = Math.floor(((1 + Math.random()) * 256) / 2);
     const blue = Math.floor(((1 + Math.random()) * 256) / 2);
-    return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+    return 'rgb(' + red.toString() + ', ' + green.toString() + ', ' + blue.toString() + ')';
   },
 };
 

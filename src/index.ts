@@ -19,8 +19,8 @@ const coraline = {
     return Math.floor(Math.random() * max);
   },
   year: (options?: { min?: number; max?: number }) => {
-    const min = options?.min || 0;
-    const max = options?.max || new Date().getFullYear();
+    const min = options?.min ?? 0;
+    const max = options?.max ?? new Date().getFullYear();
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
   getUniqueArray: <T extends Record<K, string>, K extends keyof T>(arr: T[], key: K): T[] => {
@@ -49,25 +49,19 @@ const coraline = {
   createPermalink: (text: string) => {
     const perma = text.trim().replaceAll(' ', '_').replaceAll(/\W/g, '').toLowerCase().replaceAll('__', '_').slice(0, 50).trimEnd();
     if (perma.endsWith('_')) {
+      // eslint-disable-next-line sonarjs/no-ignored-return
       perma.slice(-1);
     }
     return perma;
   },
   runAtSpecificTime,
-  performanceEnd: (start: number, api: string) => {
-    if (isProduction) throw new Error('Do not use coraline.performanceEnd in production as it is used only for debugging purposes.');
-    const end = performance.now();
-    const time = `Api: ${api} took ${end - start} milliseconds`;
-    // eslint-disable-next-line no-console
-    return console.log(time);
-  },
   memoryUsage: () => {
     if (isProduction) throw new Error('Do not use coraline.memoryUsage in production as it is used only for debugging purposes.');
     const used = process.memoryUsage().heapUsed;
     const total = process.memoryUsage().heapTotal;
     const percentage = Math.round((used / total) * 10_000) / 100;
     // eslint-disable-next-line no-console
-    console.log(`Heap usage: ${percentage}%`);
+    console.log(`Heap usage: ${percentage.toString()}%`);
     return { heapUsage: percentage };
   },
   isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),

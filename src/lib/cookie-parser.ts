@@ -38,7 +38,7 @@ const parseString = (setCookieValue: string, options: ParseOptions): Cookie => {
     name: parsed.name,
     value,
   };
-  parts.map((part) => {
+  for (const part of parts) {
     const sides = part.split('=');
     const key = sides.shift()?.trimStart().toLowerCase();
     const value = sides.join('=');
@@ -70,7 +70,7 @@ const parseString = (setCookieValue: string, options: ParseOptions): Cookie => {
         }
       }
     }
-  });
+  }
   return cookie;
 };
 
@@ -79,7 +79,7 @@ const parseNameValuePair = (nameValuePairStr: string) => {
   let value = '';
   const nameValueArr = nameValuePairStr.split('=');
   if (nameValueArr.length > 1) {
-    name = nameValueArr.shift() || '';
+    name = nameValueArr.shift() ?? '';
     value = nameValueArr.join('=');
   } else {
     value = nameValuePairStr;

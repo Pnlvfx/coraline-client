@@ -1,14 +1,19 @@
 export const errToString = (err: unknown, ...args: string[]) => {
-  if (args) {
-    args.map((value) => {
-      err += ' ' + value;
-    });
+  let error = '';
+  if (err instanceof Error) {
+    error += err.message;
   }
-  if (err instanceof Error) return err.message;
-  if (typeof err === 'string') return err;
+  if (typeof err === 'string') {
+    error += err;
+  }
   if (typeof err === 'object' && err !== null && 'description' in err) {
-    const error = err.description;
-    if (typeof error === 'string') return error;
+    const des = err.description;
+    if (typeof des === 'string') {
+      error += des;
+    }
   }
-  return 'API error';
+  for (const value of args) {
+    error += ' ' + value;
+  }
+  return error || 'API ERROR';
 };
