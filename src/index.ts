@@ -74,7 +74,10 @@ const coraline = {
 export default coraline;
 
 export { consoleColor } from './lib/console-color.js';
+
 export { errToString } from './lib/error.js';
+
+export { getEntries } from './lib/entries.js';
 
 export { withRetry, type RetryOptions } from './lib/retry.js';
 
