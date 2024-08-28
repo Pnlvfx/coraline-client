@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/pseudo-random */
 const coralineColors = {
   getDarkColor: () => {
     let color = '#';

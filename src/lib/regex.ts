@@ -6,6 +6,7 @@ const regex = {
   /** Remove any emoji from a given string. */
   removeEmojis: (str: string) => str.replaceAll(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, ''),
   /** Remove parentheses and the content inside it from a given string. It only detect () parenthesis. */
+  // eslint-disable-next-line sonarjs/slow-regex
   removeParentheses: (str: string) => str.replaceAll(/\s*\(.*?\)\s*/g, ''),
   /** Remove any accents and tranform it to it's relative character from a given string. Example: "Nèza" will return "Neza" */
   normalizeAccents: (str: string) => str.normalize('NFD').replaceAll(/\p{Diacritic}/gu, ''),

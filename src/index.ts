@@ -15,19 +15,12 @@ const coraline = {
     const el = arr.splice(fromIndex, 1);
     arr.splice(toIndex, 0, ...el);
   },
-  getRandomInt: (max: number) => {
-    return Math.floor(Math.random() * max);
-  },
-  year: (options?: { min?: number; max?: number }) => {
-    const min = options?.min ?? 0;
-    const max = options?.max ?? new Date().getFullYear();
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  },
   getUniqueArray: <T extends Record<K, string>, K extends keyof T>(arr: T[], key: K): T[] => {
     return [...new Map(arr.map((item) => [item[key], item])).values()];
   },
   shuffleArray: <T>(array: T[]) => {
     for (let i = array.length - 1; i > 0; i--) {
+      // eslint-disable-next-line sonarjs/pseudo-random
       const j = Math.floor(Math.random() * (i + 1));
       const temp = array[i];
       const newVal = array.at(j);

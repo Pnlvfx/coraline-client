@@ -53,6 +53,11 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'off',
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/catch-error-name': 'off',
+      // duplicate of tseslint
+      'sonarjs/no-misused-promises': 'off',
+
+      // enable back when sonar fix it
+      'sonarjs/sonar-no-fallthrough': 'off',
     },
   },
   {

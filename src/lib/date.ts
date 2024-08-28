@@ -1,4 +1,6 @@
-const formatDate = (date: string | number | Date) => {
+type AcceptedDate = string | number | Date;
+
+const formatDate = (date: AcceptedDate) => {
   if (typeof date === 'string' || typeof date === 'number') {
     date = new Date(date);
   }
@@ -18,11 +20,11 @@ const formatDate = (date: string | number | Date) => {
 };
 
 const coralineDate = {
-  toYYMMDD: (date: string | number | Date) => {
+  toYYMMDD: (date: AcceptedDate) => {
     const time = formatDate(date);
     return `${time.year.toString()}-${time.month}-${time.day}`;
   },
-  toYYMMDDHHMM: (date: string | number | Date) => {
+  toYYMMDDHHMM: (date: AcceptedDate) => {
     const time = formatDate(date);
     return `${time.year.toString()}-${time.month}-${time.day} ${time.hours}:${time.minutes}`;
   },
