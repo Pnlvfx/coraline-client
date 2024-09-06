@@ -19,14 +19,20 @@ const formatDate = (date: AcceptedDate) => {
   };
 };
 
+const toYYMMDD = (date: AcceptedDate) => {
+  const time = formatDate(date);
+  return `${time.year.toString()}-${time.month}-${time.day}`;
+};
+
+const toYYMMDDHHMM = (date: AcceptedDate) => {
+  const time = formatDate(date);
+  return `${time.year.toString()}-${time.month}-${time.day} ${time.hours}:${time.minutes}`;
+};
+
 const coralineDate = {
-  toYYMMDD: (date: AcceptedDate) => {
+  create: (date: AcceptedDate) => {
     const time = formatDate(date);
-    return `${time.year.toString()}-${time.month}-${time.day}`;
-  },
-  toYYMMDDHHMM: (date: AcceptedDate) => {
-    const time = formatDate(date);
-    return `${time.year.toString()}-${time.month}-${time.day} ${time.hours}:${time.minutes}`;
+    return { ...time, toYYMMDD, toYYMMDDHHMM };
   },
   startOfDay: (date = new Date()) => {
     date.setHours(0, 0, 0, 0);
