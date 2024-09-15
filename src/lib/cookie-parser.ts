@@ -60,6 +60,10 @@ const parseString = (cookieString: string, options: typeof defaultParseOptions):
           cookie.sameSite = value;
           break;
         }
+        case 'path': {
+          cookie.path = value;
+          break;
+        }
         default: {
           throw new Error(`Received an unhandled key on cookie parser: ${key}`);
         }
