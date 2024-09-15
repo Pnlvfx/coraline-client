@@ -3,40 +3,35 @@ const defaultParseOptions = {
   silent: false,
 };
 
-type ParseOptions = typeof defaultParseOptions;
-type RoughCookie = Record<string, string | number | Date | boolean>;
-
 export interface Cookie {
-  name?: string;
-  value?: string;
+  name: string;
+  value: string;
+  string: string;
   expires?: Date;
   maxAge?: number;
+  secure?: boolean;
   path?: string;
-  sameSite?: 'lax';
+  sameSite?: string;
   httpOnly?: boolean;
 }
 
 export const parseSetCookieHeader = (res: Response, options = defaultParseOptions): Cookie[] => {
-  let cookieHeader: string[];
-  if (typeof res.headers.getSetCookie === 'function') {
-    cookieHeader = res.headers.getSetCookie();
-  } else {
-    const cookieStr = res.headers.get('set-cookie');
-    if (!cookieStr) return [];
-    cookieHeader = [cookieStr];
-  }
-  return cookieHeader.filter((str) => !!str.trim()).map((str) => parseString(str, options));
+  return res.headers
+    .getSetCookie()
+    .filter((str) => !!str.trim())
+    .map((str) => parseString(str, options));
 };
 
-const parseString = (setCookieValue: string, options: ParseOptions): Cookie => {
-  const parts = setCookieValue.split(';').filter((str) => !!str.trim());
+const parseString = (cookieString: string, options: typeof defaultParseOptions): Cookie => {
+  const parts = cookieString.split(';').filter((str) => !!str.trim());
   const nameValuePairStr = parts.shift();
   if (!nameValuePairStr) throw new Error('Error while trying to parse cookie string!');
   const parsed = parseNameValuePair(nameValuePairStr);
   const value = options.decodeValues ? decodeURIComponent(parsed.value) : parsed.value;
-  const cookie: RoughCookie = {
+  const cookie: Cookie = {
     name: parsed.name,
     value,
+    string: cookieString,
   };
   for (const part of parts) {
     const sides = part.split('=');
@@ -45,28 +40,28 @@ const parseString = (setCookieValue: string, options: ParseOptions): Cookie => {
     if (key) {
       switch (key) {
         case 'expires': {
-          cookie['expires'] = new Date(value);
+          cookie.expires = new Date(value);
           break;
         }
         case 'max-age': {
           // eslint-disable-next-line unicorn/prefer-number-properties
-          cookie['maxAge'] = parseInt(value, 10);
+          cookie.maxAge = parseInt(value, 10);
           break;
         }
         case 'secure': {
-          cookie['secure'] = true;
+          cookie.secure = true;
           break;
         }
         case 'httponly': {
-          cookie['httpOnly'] = true;
+          cookie.httpOnly = true;
           break;
         }
         case 'samesite': {
-          cookie['sameSite'] = value;
+          cookie.sameSite = value;
           break;
         }
         default: {
-          cookie[key] = value;
+          throw new Error(`Received an unhandled key on cookie parser: ${key}`);
         }
       }
     }
