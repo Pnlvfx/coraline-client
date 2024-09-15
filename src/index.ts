@@ -1,9 +1,11 @@
-import regex from './lib/regex.js';
 import coralineDate from './lib/date.js';
 import coralineColors from './lib/colors.js';
 import { isProduction } from './config.js';
 import { runAtSpecificTime } from './lib/run-at-specific-time.js';
 import { wait } from './lib/wait.js';
+import { parseSetCookieHeader } from './lib/cookie-parser.js';
+import { backOff } from './lib/exponential-backoff.js';
+import { withRetry } from './lib/retry.js';
 
 const coraline = {
   toNumber: (str: string) => {
@@ -47,7 +49,6 @@ const coraline = {
     }
     return perma;
   },
-  runAtSpecificTime,
   memoryUsage: () => {
     if (isProduction) throw new Error('Do not use coraline.memoryUsage in production as it is used only for debugging purposes.');
     const used = process.memoryUsage().heapUsed;
@@ -58,9 +59,12 @@ const coraline = {
     return { heapUsage: percentage };
   },
   isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),
+  runAtSpecificTime,
+  parseSetCookieHeader,
+  backOff,
   wait,
+  withRetry,
   date: coralineDate,
-  regex,
   colors: coralineColors,
 };
 
@@ -72,11 +76,7 @@ export { errToString } from './lib/error.js';
 
 export { getEntries, getKeys } from './lib/typed-object.js';
 
-export { withRetry, type RetryOptions } from './lib/retry.js';
-
-export { backOff } from './lib/exponential-backoff.js';
-
-export { parseSetCookieHeader } from './lib/cookie-parser.js';
+export type { RetryOptions } from './lib/retry.js';
 
 export type { Cookie } from './lib/cookie-parser.js';
 
