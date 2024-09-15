@@ -1,12 +1,6 @@
-const defaultParseOptions = {
-  decodeValues: true,
-  silent: false,
-};
-
 export interface Cookie {
   name: string;
   value: string;
-  string: string;
   expires?: Date;
   maxAge?: number;
   secure?: boolean;
@@ -15,23 +9,22 @@ export interface Cookie {
   httpOnly?: boolean;
 }
 
-export const parseSetCookieHeader = (res: Response, options = defaultParseOptions): Cookie[] => {
+export const parseSetCookieHeader = (res: Response, { decodeValues = true } = {}): Cookie[] => {
   return res.headers
     .getSetCookie()
     .filter((str) => !!str.trim())
-    .map((str) => parseString(str, options));
+    .map((str) => parseString(str, decodeValues));
 };
 
-const parseString = (cookieString: string, options: typeof defaultParseOptions): Cookie => {
+const parseString = (cookieString: string, decodeValues?: boolean): Cookie => {
   const parts = cookieString.split(';').filter((str) => !!str.trim());
   const nameValuePairStr = parts.shift();
   if (!nameValuePairStr) throw new Error('Error while trying to parse cookie string!');
   const parsed = parseNameValuePair(nameValuePairStr);
-  const value = options.decodeValues ? decodeURIComponent(parsed.value) : parsed.value;
+  const value = decodeValues ? decodeURIComponent(parsed.value) : parsed.value;
   const cookie: Cookie = {
     name: parsed.name,
     value,
-    string: cookieString,
   };
   for (const part of parts) {
     const sides = part.split('=');
