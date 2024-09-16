@@ -10,7 +10,7 @@ import { withRetry } from './lib/retry.js';
 const coraline = {
   toNumber: (str: string) => {
     const num = Number(str);
-    if (Number.isNaN(num)) throw new Error(`Invalid number received: ${str}`);
+    if (Number.isNaN(num)) throw new Error(`"${str}" is not a valid number.`);
     return num;
   },
   arrayMove: <T>(arr: T[], fromIndex: number, toIndex: number) => {
