@@ -25,9 +25,9 @@ const coraline = {
       // eslint-disable-next-line sonarjs/pseudo-random
       const j = Math.floor(Math.random() * (i + 1));
       const temp = array[i];
-      const newVal = array.at(j);
-      if (!temp || !newVal) throw new Error('Something went wrong');
-      array[i] = newVal;
+      const val = array.at(j);
+      if (!temp || !val) throw new Error('Something went wrong');
+      array[i] = val;
       array[j] = temp;
     }
   },
