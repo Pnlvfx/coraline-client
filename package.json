@@ -28,7 +28,7 @@
     "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
     "lint": "eslint",
     "build": "rimraf dist && eslint && tsc -p tsconfig.build.json && npm run build:cjs && npm run generate:package.json",
-    "build:cjs": "tsc -p tsconfig.build.json --module commonjs --moduleResolution node --outDir dist/cjs",
+    "build:cjs": "tsc --module CommonJS --moduleResolution Node --outDir dist/cjs",
     "prepack": "npm run build",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && eslint"
