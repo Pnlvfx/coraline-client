@@ -7,7 +7,7 @@ import unicorn from 'eslint-plugin-unicorn';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'tools'],
+    ignores: ['dist'],
   },
   eslint.configs.recommended,
   unicorn.configs['flat/all'],
