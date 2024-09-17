@@ -12,9 +12,6 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/cjs/coraline.js",
-  "module": "./dist/esm/coraline.js",
-  "types": "./dist/esm/coraline.d.ts",
   "engines": {
     "node": ">=20.0.0"
   },
