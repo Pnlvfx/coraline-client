@@ -2,30 +2,37 @@
   "name": "coraline-client",
   "description": "Your favourite client package helper.",
   "version": "2024.6.12",
+  "author": {
+    "email": "simonegauli@gmail.com",
+    "name": "Simone Gauli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pnlvfx/coraline-client.git"
+  },
+  "license": "MIT",
+  "type": "module",
   "main": "./dist/cjs/coraline.js",
   "module": "./dist/esm/coraline.js",
   "types": "./dist/esm/coraline.d.ts",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "exports": {
     "types": "./dist/esm/coraline.d.ts",
     "import": "./dist/esm/coraline.js",
     "require": "./dist/cjs/coraline.js"
   },
-  "type": "module",
-  "license": "MIT",
-  "engines": {
-    "node": ">=20.0.0"
-  },
   "scripts": {
     "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
-    "dev": "tsc -w & node --watch .",
+    "dev": "tsc -p tsconfig.build.json -w & node --watch .",
     "start": "node .",
-    "lint": "eslint ./src",
-    "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --moduleResolution node --outDir dist/cjs",
+    "lint": "eslint",
+    "build": "rimraf dist && eslint && tsc -p tsconfig.build.json && npm run build:cjs && npm run generate:package.json",
+    "build:cjs": "tsc -p tsconfig.build.json --module commonjs --moduleResolution node --outDir dist/cjs",
     "prepack": "npm run build",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run test && npm run lint"
+    "prepublishOnly": "npm run test && eslint"
   },
   "files": [
     "dist",

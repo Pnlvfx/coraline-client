@@ -1,5 +1,4 @@
-// @ts-check
-
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import eslint from '@eslint/js';
 import globals from 'globals';
 import sonarjs from 'eslint-plugin-sonarjs';
@@ -64,7 +63,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.js'],
+    files: ['src/**/*.js'],
     ...tseslint.configs.disableTypeChecked,
   },
 );
