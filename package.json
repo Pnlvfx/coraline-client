@@ -24,9 +24,8 @@
     "require": "./dist/cjs/coraline.js"
   },
   "scripts": {
+    "tsc": "tsc --noEmit true",
     "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
-    "dev": "tsc -p tsconfig.build.json -w & node --watch .",
-    "start": "node .",
     "lint": "eslint",
     "build": "rimraf dist && eslint && tsc -p tsconfig.build.json && npm run build:cjs && npm run generate:package.json",
     "build:cjs": "tsc -p tsconfig.build.json --module commonjs --moduleResolution node --outDir dist/cjs",
