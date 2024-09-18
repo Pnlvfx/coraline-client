@@ -26,7 +26,7 @@
   "scripts": {
     "tsc": "tsc --noEmit true",
     "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
-    "test": "jest --coverage",
+    "test": "rimraf coverage && jest --coverage",
     "lint": "eslint",
     "build": "rimraf dist && eslint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
     "build:esm": "tsc -p tsconfig.build.json",
