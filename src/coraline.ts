@@ -58,6 +58,13 @@ const coraline = {
     console.log(`Heap usage: ${percentage.toString()}%`);
     return { heapUsage: percentage };
   },
+  isUrl: (str: string) => {
+    try {
+      return !!new URL(str);
+    } catch {
+      return false;
+    }
+  },
   isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),
   runAtSpecificTime,
   parseSetCookieHeader,
