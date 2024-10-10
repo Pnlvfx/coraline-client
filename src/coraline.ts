@@ -42,6 +42,7 @@ const coraline = {
     return duplicates;
   },
   createPermalink: (text: string) => {
+    if (text.length < 20) throw new Error('Text is too short to create a permalink.');
     const perma = text.trim().replaceAll(' ', '_').replaceAll(/\W/g, '').toLowerCase().replaceAll('__', '_').slice(0, 50).trimEnd();
     if (perma.endsWith('_')) {
       // eslint-disable-next-line sonarjs/no-ignored-return
