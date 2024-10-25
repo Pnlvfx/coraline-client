@@ -5,6 +5,7 @@ import { runAtSpecificTime } from './lib/run-at-specific-time.js';
 import { wait } from './lib/wait.js';
 import { parseSetCookieHeader } from './lib/cookie-parser.js';
 import { backOff } from './lib/exponential-backoff.js';
+import { findUnusedExports } from './lib/ts-unused-exports.cjs';
 
 const coraline = {
   toNumber: (str: string) => {
@@ -60,6 +61,7 @@ const coraline = {
   parseSetCookieHeader,
   backOff,
   wait,
+  findUnusedExports,
   date: coralineDate,
   colors: coralineColors,
 };
