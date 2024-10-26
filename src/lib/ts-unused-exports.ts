@@ -4,13 +4,14 @@ import path from 'node:path';
 import { analyzeTsConfig, type Analysis } from 'ts-unused-exports';
 
 interface UnusedOptions {
+  tsConfigPath?: string;
   ignoreVars?: string[];
   ignoreFiles?: string[];
 }
 
 /** Find all the unused variables in your code. */
-export const findUnusedExports = ({ ignoreFiles, ignoreVars }: UnusedOptions = {}) => {
-  const analyzed = analyzeTsConfig(path.resolve('.', 'tsconfig.json'));
+export const findUnusedExports = ({ ignoreFiles, ignoreVars, tsConfigPath = path.resolve('.', 'tsconfig.json') }: UnusedOptions = {}) => {
+  const analyzed = analyzeTsConfig(tsConfigPath);
   const response: Analysis = {};
   for (const [key, value] of Object.entries(analyzed)) {
     const filename = path.basename(key);
