@@ -1,17 +1,7 @@
 /* eslint-disable sonarjs/no-nested-template-literals */
 /* eslint-disable sonarjs/cognitive-complexity */
 import path from 'node:path';
-import analyzeTsConfig from 'ts-unused-exports';
-
-interface LocationInFile {
-  line: number;
-  character: number;
-}
-
-interface Analysis {
-  exportName: string;
-  location: LocationInFile;
-}
+import analyzeTsConfig, { type Analysis } from 'ts-unused-exports';
 
 interface UnusedOptions {
   ignoreVars?: string[];
@@ -21,7 +11,7 @@ interface UnusedOptions {
 /** Find all the unused variables in your code. */
 export const findUnusedExports = ({ ignoreFiles, ignoreVars }: UnusedOptions = {}) => {
   const analyzed = analyzeTsConfig.default(path.resolve('.', 'tsconfig.json'));
-  const response: Record<string, Analysis[]> = {};
+  const response: Analysis = {};
   for (const [key, value] of Object.entries(analyzed)) {
     const filename = path.basename(key);
     if (ignoreFiles?.includes(filename)) {
