@@ -8,22 +8,19 @@ interface LocationInFile {
   character: number;
 }
 
-export interface Analysis {
+interface Analysis {
   exportName: string;
   location: LocationInFile;
 }
 
-export interface UnusedOptions {
+interface UnusedOptions {
   ignoreVars?: string[];
   ignoreFiles?: string[];
 }
 
 /** Find all the unused variables in your code. */
 export const findUnusedExports = ({ ignoreFiles, ignoreVars }: UnusedOptions = {}) => {
-  if (process.env['NODE_ENV'] === 'production') {
-    throw new Error('Do not use findUnusedExports in production as it will slow down your app performance.');
-  }
-  const analyzed = analyzeTsConfig(path.resolve('.', 'tsconfig.json'));
+  const analyzed = analyzeTsConfig.default(path.resolve('.', 'tsconfig.json'));
   const response: Record<string, Analysis[]> = {};
   for (const [key, value] of Object.entries(analyzed)) {
     const filename = path.basename(key);

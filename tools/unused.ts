@@ -1,6 +1,6 @@
-import coraline from '../src/coraline.js';
+import { findUnusedExports } from '../src/coraline.js';
 
-const unused = coraline.findUnusedExports({
+const unused = findUnusedExports({
   ignoreFiles: ['coraline.ts', 'eslint.config.js', 'jest.config.ts'],
   ignoreVars: [],
 });
