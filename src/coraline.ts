@@ -72,8 +72,6 @@ export { errToString } from './lib/error.js';
 
 export { getEntries, getKeys } from './lib/typed-object.js';
 
-export { findUnusedExports } from './lib/ts-unused-exports.js';
-
 export type { Cookie } from './lib/cookie-parser.js';
 
 export type { ConsoleColor } from './lib/console-color.js';
