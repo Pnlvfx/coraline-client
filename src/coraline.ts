@@ -5,7 +5,6 @@ import { runAtSpecificTime } from './lib/run-at-specific-time.js';
 import { wait } from './lib/wait.js';
 import { parseSetCookieHeader } from './lib/cookie-parser.js';
 import { backOff } from './lib/exponential-backoff.js';
-import { withRetry } from './lib/retry.js';
 
 const coraline = {
   toNumber: (str: string) => {
@@ -56,12 +55,11 @@ const coraline = {
       return false;
     }
   },
-  isJson: (res: Response) => res.headers.get('Content-Type')?.includes('application/json'),
+  isJson: (res: Response) => res.headers.get('content-type')?.includes('application/json'),
   runAtSpecificTime,
   parseSetCookieHeader,
   backOff,
   wait,
-  withRetry,
   date: coralineDate,
   colors: coralineColors,
 };
@@ -73,6 +71,8 @@ export { consoleColor } from './lib/console-color.js';
 export { errToString } from './lib/error.js';
 
 export { getEntries, getKeys } from './lib/typed-object.js';
+
+export { withRetry } from './lib/retry.js';
 
 export type { Cookie } from './lib/cookie-parser.js';
 
