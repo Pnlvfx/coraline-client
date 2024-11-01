@@ -67,17 +67,10 @@ const coraline = {
 export default coraline;
 
 export { consoleColor } from './lib/console-color.js';
-
 export { errToString } from './lib/error.js';
-
 export { getEntries, getKeys } from './lib/typed-object.js';
-
 export { withRetry } from './lib/retry.js';
-
 export type { Cookie } from './lib/cookie-parser.js';
-
 export type { ConsoleColor } from './lib/console-color.js';
-
-export type { Callback } from './types/shared.js';
-
-export { default as regex } from './lib/regex.js';
+export type * from './types/shared.js';
+export { regex } from './lib/regex.js';

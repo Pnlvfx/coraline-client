@@ -1,4 +1,4 @@
-const regex = {
+export const regex = {
   /** Match two strings using regex even if there are differences in upper or lower case */
   upperLowerCase: (name: string) => new RegExp(`^${name}$`, 'i'),
   /** Detect if a given string has emoji. */
@@ -16,5 +16,3 @@ const regex = {
     return new RegExp(`^.*?${regexString}.*?$`, 'i');
   },
 };
-
-export default regex;
