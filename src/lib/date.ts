@@ -24,6 +24,7 @@ const coralineDate = {
     const time = formatDate(date);
     return {
       ...time,
+      toYYMM: () => `${time.year.toString()}-${time.month}-${time.day}`,
       toYYMMDD: () => `${time.year.toString()}-${time.month}-${time.day}`,
       toYYMMDDHHMM: () => `${time.year.toString()}-${time.month}-${time.day} ${time.hours}:${time.minutes}`,
     };
