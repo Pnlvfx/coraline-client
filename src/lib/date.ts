@@ -20,7 +20,7 @@ const formatDate = (date: AcceptedDate) => {
 };
 
 const coralineDate = {
-  create: (date: AcceptedDate) => {
+  create: (date: AcceptedDate = new Date()) => {
     const time = formatDate(date);
     return {
       ...time,
