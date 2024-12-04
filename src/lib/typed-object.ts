@@ -7,3 +7,8 @@ export const getEntries = <T extends object>(obj: T) => {
 export const getKeys = <T extends object>(obj: T) => {
   return Object.keys(obj) as (keyof T)[];
 };
+
+/** Use this instead of Object.values to get typed values. */
+export const getValues = <T extends object>(obj: T) => {
+  return Object.values(obj) as T[keyof T][];
+};
