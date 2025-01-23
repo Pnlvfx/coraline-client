@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-spread */
 export const regex = {
   /** Detect if a given string has emoji. */
   detectEmoji: /<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu,
@@ -18,7 +19,10 @@ export const regex = {
   normalizeAccents: (str: string) => str.normalize('NFD').replaceAll(/\p{Diacritic}/gu, ''),
   /** Match a string even with some differences, but note that it might be incorrect. */
   simpleMatch: (name: string) => {
-    const regexString = [...name].map((char) => `${char}.*?`).join('.*?');
+    const regexString = name
+      .split('')
+      .map((char) => `${char}.*?`)
+      .join('.*?');
     return new RegExp(`^.*?${regexString}.*?$`, 'i');
   },
 };

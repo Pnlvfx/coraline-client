@@ -30,10 +30,9 @@ const coraline = {
       array[j] = temp;
     }
   },
-  createPermalink: (text: string) => {
-    if (text.length < 20) throw new Error('Text is too short to create a permalink.');
-    const perma = text.trim().replaceAll(' ', '_').replaceAll(/\W/g, '').toLowerCase().replaceAll('__', '_').slice(0, 50).trimEnd();
-    if (perma.endsWith('_')) {
+  createPermalink: (text: string, { separator = '_', maxLength = 50 }) => {
+    const perma = text.trim().replaceAll(' ', separator).replaceAll(/\W/g, '').toLowerCase().slice(0, maxLength).trimEnd();
+    if (perma.endsWith(separator)) {
       // eslint-disable-next-line sonarjs/no-ignored-return
       perma.slice(-1);
     }
